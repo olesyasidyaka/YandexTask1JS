@@ -87,11 +87,14 @@ function Door1(number, onUnlock) {
     }
 
     var left, top;
+    left = 18;
+    top = 248;
+    var x, y;
     function _onButtonPointerMove(e) {
-        left = e.clientX - 32;
-        top = e.clientY - 32;
-        //update();
-        window.requestAnimationFrame(update);
+        x = e.clientX - 32;
+        y = e.clientY - 32;
+        update();
+        //window.requestAnimationFrame(update);
     }
 
     var alpha = Math.PI;
@@ -99,12 +102,22 @@ function Door1(number, onUnlock) {
     var yc = 280;
     var radius = 110;
     function update() {
+        var dx = x - left;
+        var dy = y - top;
+        var g = Math.min(dx / radius, dy / radius);
+        if (g < 0)
+            g = Math.max(dx / radius, dy / radius);
+        console.log(g);
+        var gamma = g;
+        alpha += gamma;
         left = xc + radius * Math.cos(alpha) - 32;
         top = yc + radius * Math.sin(alpha) - 32;
         $(buttons[0]).css('left', left + 'px');
         $(buttons[0]).css('top', top + 'px');
-        alpha += 3 * Math.PI / 180 % (2 * Math.PI);
-        window.requestAnimationFrame(update);
+        x = left;
+        y = top;
+        //alpha += 3 * Math.PI / 180 % (2 * Math.PI);
+        //window.requestAnimationFrame(update);
     }
 
     /**
