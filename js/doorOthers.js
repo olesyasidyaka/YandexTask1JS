@@ -65,23 +65,23 @@ function Door1(number, onUnlock) {
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
 
-    //button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+    button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
     button.addEventListener('pointerup', _onButtonPointerUp.bind(this));
     button.addEventListener('pointermove', _onButtonPointerMove.bind(this));
-    //button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
     button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
-    //button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
+    button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
+
+    var timer = window.setInterval(moveBack, 10);
 
     function _onButtonPointerDown(e) {
         e.target.classList.add('door-riddle__button_pressed');
-        pressed = true;
-        window.requestAnimationFrame(update);
     }
 
     function _onButtonPointerUp(e) {
         e.target.classList.remove('door-riddle__button_pressed');
         pressed = false;
-        window.setTimeout(window.requestAnimationFrame(update), 1000);
+        update();
     }
 
     var left, top;
@@ -94,28 +94,40 @@ function Door1(number, onUnlock) {
         left = e.clientX - 32;
         top = e.clientY - 32;
         checkCondition.apply(this);
-        window.requestAnimationFrame(update);
+        update();
     }
 
     function update() {
-        console.log(pressed);
-        alpha += (pressed ? 1 : -0.3) * 5 * Math.PI / 180;
-        if (alpha < Math.PI)
-            alpha = Math.PI;
+        alpha += 5 * Math.PI / 180;
+        window.requestAnimationFrame(setPosition);
+    }
+
+    function moveBack() {
+        if (!pressed) {
+            alpha -= 1 * Math.PI / 180;
+            if (alpha < Math.PI)
+                alpha = Math.PI;
+            window.requestAnimationFrame(setPosition);
+        }
+    }
+
+    function setPosition() {
+        console.log(alpha);
         left = xc + radius * Math.cos(alpha) - 32;
         top = yc + radius * Math.sin(alpha) - 32;
         $(button).css('left', left + 'px');
         $(button).css('top', top + 'px');
-        if (!pressed && alpha != Math.PI)
-            window.requestAnimationFrame(update);
     }
 
     /**
      * Проверяем, можно ли теперь открыть дверь
      */
     function checkCondition() {
-        if (alpha > 3*Math.PI)
+        console.log('check');
+        if (alpha > 3*Math.PI) {
+            window.clearTimeout(timer);
             this.unlock();
+        }
     }
 
   
