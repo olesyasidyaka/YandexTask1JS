@@ -102,21 +102,28 @@ function Door1(number, onUnlock) {
     var yc = 280;
     var radius = 110;
     function update() {
-        var dx = x - left;
-        var dy = y - top;
-        var g = Math.min(dx / radius, dy / radius);
-        if (g < 0)
-            g = Math.max(dx / radius, dy / radius);
-        console.log(g);
-        var gamma = g;
-        alpha += gamma;
+        // var dx = x - left;
+        // var dy = y - top;
+        // var dr = Math.sqrt(dx*dx + dy*dy);
+        // if (dr < 5)
+        //     dr = 0;
+        // var sig = 1;
+        // if ((alpha > 0 && alpha < Math.PI/2 && dx > 0 && dy < 0) ||
+        //     (alpha > Math.PI/2 && alpha < Math.PI && dx > 0 && dy > 0) ||
+        //     (alpha > Math.PI && alpha < 3*Math.PI/2 && dx < 0 && dy > 0) ||
+        //     (alpha > 3*Math.PI && alpha < 2*Math.PI && dx < 0 && dy < 0))
+        //     sig = -1;
+        //
+        // console.log(sig);
+        // var gamma = dr/radius * sig;
+        // alpha += gamma;
         left = xc + radius * Math.cos(alpha) - 32;
         top = yc + radius * Math.sin(alpha) - 32;
         $(buttons[0]).css('left', left + 'px');
         $(buttons[0]).css('top', top + 'px');
         x = left;
         y = top;
-        //alpha += 3 * Math.PI / 180 % (2 * Math.PI);
+        alpha += 3 * Math.PI / 180 % (2 * Math.PI);
         //window.requestAnimationFrame(update);
     }
 
