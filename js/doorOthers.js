@@ -74,6 +74,7 @@ function Door1(number, onUnlock) {
         b.addEventListener('pointermove', _onButtonPointerMove.bind(this));
         b.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
         b.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+        b.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
     }.bind(this));
 
     function _onButtonPointerDown(e) {
@@ -93,8 +94,8 @@ function Door1(number, onUnlock) {
     function _onButtonPointerMove(e) {
         x = e.clientX - 32;
         y = e.clientY - 32;
-        update();
-        //window.requestAnimationFrame(update);
+        //update();
+        window.requestAnimationFrame(update);
     }
 
     var alpha = Math.PI;
@@ -123,7 +124,7 @@ function Door1(number, onUnlock) {
         $(buttons[0]).css('top', top + 'px');
         x = left;
         y = top;
-        alpha += 3 * Math.PI / 180 % (2 * Math.PI);
+        alpha += 5 * Math.PI / 180 % (2 * Math.PI);
         //window.requestAnimationFrame(update);
     }
 
