@@ -62,37 +62,35 @@ Door0.prototype.constructor = DoorBase;
 function Door1(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
-    console.log(this.popup);
-    var buttons = [
-        this.popup.querySelector('.myButton')
-    ];
+    var button = this.popup.querySelector('.myButton');
+    var pressed = false;
 
-    buttons.forEach(function(b) {
-        console.log(b);
-        b.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
-        b.addEventListener('pointerup', _onButtonPointerUp.bind(this));
-        b.addEventListener('pointermove', _onButtonPointerMove.bind(this));
-        b.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
-        b.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
-        b.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
-    }.bind(this));
+    //button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+    button.addEventListener('pointerup', _onButtonPointerUp.bind(this));
+    button.addEventListener('pointermove', _onButtonPointerMove.bind(this));
+    //button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+    //button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
     function _onButtonPointerDown(e) {
         e.target.classList.add('door-riddle__button_pressed');
+        pressed = true;
+        window.requestAnimationFrame(update);
     }
 
     function _onButtonPointerUp(e) {
         e.target.classList.remove('door-riddle__button_pressed');
+        pressed = false;
+        window.setTimeout(window.requestAnimationFrame(update), 1000);
     }
 
-    // var left = 18;
-    // var top = 248;
     var left, top;
     var alpha = Math.PI;
     var xc = 160;
     var yc = 280;
     var radius = 110;
     function _onButtonPointerMove(e) {
+        pressed = true;
         left = e.clientX - 32;
         top = e.clientY - 32;
         checkCondition.apply(this);
@@ -100,11 +98,16 @@ function Door1(number, onUnlock) {
     }
 
     function update() {
+        console.log(pressed);
+        alpha += (pressed ? 1 : -0.3) * 5 * Math.PI / 180;
+        if (alpha < Math.PI)
+            alpha = Math.PI;
         left = xc + radius * Math.cos(alpha) - 32;
         top = yc + radius * Math.sin(alpha) - 32;
-        $(buttons[0]).css('left', left + 'px');
-        $(buttons[0]).css('top', top + 'px');
-        alpha += 5 * Math.PI / 180;
+        $(button).css('left', left + 'px');
+        $(button).css('top', top + 'px');
+        if (!pressed && alpha != Math.PI)
+            window.requestAnimationFrame(update);
     }
 
     /**
