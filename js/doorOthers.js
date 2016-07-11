@@ -62,6 +62,13 @@ Door0.prototype.constructor = DoorBase;
 function Door1(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
+    // ==== Напишите свой код для открытия второй двери здесь ====
+    var left, top;
+    var alpha = Math.PI;
+    var xc = 160;
+    var yc = 280;
+    var radius = 110;
+
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
 
@@ -81,14 +88,8 @@ function Door1(number, onUnlock) {
     function _onButtonPointerUp(e) {
         e.target.classList.remove('door-riddle__button_pressed');
         pressed = false;
-        update();
     }
 
-    var left, top;
-    var alpha = Math.PI;
-    var xc = 160;
-    var yc = 280;
-    var radius = 110;
     function _onButtonPointerMove(e) {
         pressed = true;
         left = e.clientX - 32;
@@ -103,7 +104,7 @@ function Door1(number, onUnlock) {
     }
 
     function moveBack() {
-        if (!pressed) {
+        if (!pressed && alpha != Math.PI) {
             alpha -= 1 * Math.PI / 180;
             if (alpha < Math.PI)
                 alpha = Math.PI;
@@ -112,7 +113,6 @@ function Door1(number, onUnlock) {
     }
 
     function setPosition() {
-        console.log(alpha);
         left = xc + radius * Math.cos(alpha) - 32;
         top = yc + radius * Math.sin(alpha) - 32;
         $(button).css('left', left + 'px');
@@ -123,28 +123,11 @@ function Door1(number, onUnlock) {
      * Проверяем, можно ли теперь открыть дверь
      */
     function checkCondition() {
-        console.log('check');
         if (alpha > 3*Math.PI) {
             window.clearTimeout(timer);
             this.unlock();
         }
     }
-
-  
-
-    // // ==== Напишите свой код для открытия второй двери здесь ====
-    // // Для примера дверь откроется просто по клику на неё
-    // this.popup.addEventListener('click', function() {
-    //     window.requestAnimationFrame(update);
-
-    //     //this.unlock();
-    // }.bind(this));
-
-    // function update() {
-    //     buttons[0].left += '5px';
-
-    //     window.requestAnimationFrame(update);
-    // } 
     // ==== END Напишите свой код для открытия второй двери здесь ====
 }
 Door1.prototype = Object.create(DoorBase.prototype);
@@ -160,10 +143,75 @@ function Door2(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия третей двери здесь ====
-    // Для примера дверь откроется просто по клику на неё
-    this.popup.addEventListener('click', function() {
-        this.unlock();
+    var buttons = [
+        this.popup.querySelector('.myButton_0'),
+        this.popup.querySelector('.myButton_1'),
+        this.popup.querySelector('.myButton_2')
+    ];
+    buttons[0].id = 0;
+    buttons[1].id = 1;
+    buttons[2].id = 2;
+
+    buttons.forEach(function(b) {
+        b.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+        b.addEventListener('pointerup', _onButtonPointerUp.bind(this));
+        b.addEventListener('pointermove', _onButtonPointerMove.bind(this));
+        b.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+        b.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+        b.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
     }.bind(this));
+
+    var timer = window.setInterval(moveBack, 10);
+
+    function _onButtonPointerDown(e) {
+        e.target.classList.add('door-riddle__button_pressed');
+        e.target.pressed = true;
+    }
+
+    function _onButtonPointerUp(e) {
+        e.target.classList.remove('door-riddle__button_pressed');
+        e.target.pressed = true;
+    }
+
+    function _onButtonPointerMove(e) {
+        e.target.pressed = true;
+        e.target.left = e.clientX - 32;
+        e.target.top = e.clientY - 32;
+        checkCondition.apply(this);
+        update();
+    }
+
+    function update() {
+        window.requestAnimationFrame(setPosition);
+    }
+
+    function moveBack() {
+        // if (!pressed) {
+        //     alpha -= 1 * Math.PI / 180;
+        //     if (alpha < Math.PI)
+        //         alpha = Math.PI;
+        //     window.requestAnimationFrame(setPosition);
+        // }
+    }
+
+    function setPosition() {
+        console.log('set position');
+        console.log(buttons);
+        buttons.forEach(function(b) {
+            $(b).css('left', b.left + 'px');
+            $(b).css('top', b.top + 'px');
+        });
+    }
+
+    /**
+     * Проверяем, можно ли теперь открыть дверь
+     */
+    function checkCondition() {
+        // if (alpha > 3*Math.PI) {
+        //     window.clearTimeout(timer);
+        //     this.unlock();
+        // }
+    }
     // ==== END Напишите свой код для открытия третей двери здесь ====
 }
 Door2.prototype = Object.create(DoorBase.prototype);

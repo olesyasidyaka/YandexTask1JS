@@ -200,6 +200,32 @@ body {
     top: 248px;
 }
 
+.myButton_0, .myButton_1, .myButton_2 {
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    background-color: #583319;
+    border: 1px solid #F3E9E0;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .4);
+    transition: background-color .3s;
+    position: absolute;
+}
+
+.myButton_0 {
+    left: 160px;
+    top: 150px;
+}
+
+.myButton_1 {
+    left: 50px;
+    top: 250px;
+}
+
+.myButton_2 {
+    left: 270px;
+    top: 250px;
+}
+
 .door-riddle__button_pressed {
     background-color: #F3E5D9;
 }
