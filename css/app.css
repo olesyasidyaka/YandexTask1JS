@@ -185,7 +185,18 @@ body {
     height: 100%;
 }
 
-.myButton {
+.door_1 {
+    width: 220px;
+    height: 220px;
+    border-radius: 220px;
+    border: 8px solid #5ef261;
+    background-color: transparent;
+    position: absolute;
+    top: 170px;
+    left: 50px;
+}
+
+.myButton, .myButton_0, .myButton_1, .myButton_2 {
     width: 64px;
     height: 64px;
     border-radius: 64px;
@@ -200,30 +211,19 @@ body {
     top: 248px;
 }
 
-.myButton_0, .myButton_1, .myButton_2 {
-    width: 64px;
-    height: 64px;
-    border-radius: 64px;
-    background-color: #583319;
-    border: 1px solid #F3E9E0;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, .4);
-    transition: background-color .3s;
-    position: absolute;
-}
-
 .myButton_0 {
-    left: 160px;
-    top: 150px;
+    left: calc(50% - 32px);
+    top: 70%;
 }
 
 .myButton_1 {
-    left: 50px;
-    top: 250px;
+    left: calc(20% - 32px);
+    top: 20%;
 }
 
 .myButton_2 {
-    left: 270px;
-    top: 250px;
+    left: calc(80% - 32px);
+    top: 20%;
 }
 
 .door-riddle__button_pressed {

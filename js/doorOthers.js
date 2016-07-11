@@ -148,9 +148,6 @@ function Door2(number, onUnlock) {
         this.popup.querySelector('.myButton_1'),
         this.popup.querySelector('.myButton_2')
     ];
-    buttons[0].id = 0;
-    buttons[1].id = 1;
-    buttons[2].id = 2;
 
     buttons.forEach(function(b) {
         b.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
@@ -170,7 +167,7 @@ function Door2(number, onUnlock) {
 
     function _onButtonPointerUp(e) {
         e.target.classList.remove('door-riddle__button_pressed');
-        e.target.pressed = true;
+        e.target.pressed = false;
     }
 
     function _onButtonPointerMove(e) {
@@ -195,12 +192,16 @@ function Door2(number, onUnlock) {
     }
 
     function setPosition() {
-        console.log('set position');
-        console.log(buttons);
-        buttons.forEach(function(b) {
-            $(b).css('left', b.left + 'px');
-            $(b).css('top', b.top + 'px');
-        });
+        var allPressed = true;
+        for (var i = 0; i < 3; i++) {
+            if (!buttons[i].classList.contains('door-riddle__button_pressed'))
+                allPressed = false;
+        }
+        if (allPressed)
+            buttons.forEach(function(b) {
+                $(b).css('left', b.left + 'px');
+                $(b).css('top', b.top + 'px');
+            });
     }
 
     /**
