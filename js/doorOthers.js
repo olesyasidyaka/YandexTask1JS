@@ -86,12 +86,25 @@ function Door1(number, onUnlock) {
         e.target.classList.remove('door-riddle__button_pressed');
     }
 
+    var left, top;
     function _onButtonPointerMove(e) {
-        var left = e.clientX - 32;
-        var top = e.clientY - 32;
-        console.log(left, top);
-        update(left, top);
-        //window.requestAnimationFrame(update);
+        left = e.clientX - 32;
+        top = e.clientY - 32;
+        //update();
+        window.requestAnimationFrame(update);
+    }
+
+    var alpha = Math.PI;
+    var xc = 160;
+    var yc = 280;
+    var radius = 110;
+    function update() {
+        left = xc + radius * Math.cos(alpha) - 32;
+        top = yc + radius * Math.sin(alpha) - 32;
+        $(buttons[0]).css('left', left + 'px');
+        $(buttons[0]).css('top', top + 'px');
+        alpha += 3 * Math.PI / 180 % (2 * Math.PI);
+        window.requestAnimationFrame(update);
     }
 
     /**
@@ -109,11 +122,6 @@ function Door1(number, onUnlock) {
         if (isOpened) {
             this.unlock();
         }
-    }
-
-    function update(x, y) {
-        $(buttons[0]).css('left', x + 'px');
-        $(buttons[0]).css('top', y + 'px');
     }
 
   
