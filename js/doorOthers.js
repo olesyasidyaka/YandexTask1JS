@@ -148,8 +148,8 @@ function Door2(number, onUnlock) {
         this.popup.querySelector('.myButton_1'),
         this.popup.querySelector('.myButton_2')
     ];
-    var centerX = 160;
-    var centerY = 280;
+    var centerX = 163;
+    var centerY = 283;
     var radius = 110;
 
     buttons.forEach(function(b) {
@@ -183,15 +183,6 @@ function Door2(number, onUnlock) {
         window.requestAnimationFrame(setPosition);
     }
 
-    function moveBack() {
-        // if (!pressed) {
-        //     alpha -= 1 * Math.PI / 180;
-        //     if (alpha < Math.PI)
-        //         alpha = Math.PI;
-        //     window.requestAnimationFrame(setPosition);
-        // }
-    }
-
     function setPosition() {
         var allPressed = true;
         for (var i = 0; i < 3; i++) {
@@ -211,9 +202,10 @@ function Door2(number, onUnlock) {
     function checkCondition() {
         var allInside = true;
         for (var i = 0; i < 3; i++) {
-            var xc = buttons[i].left - 32;
-            var yc = buttons[i].top - 32;
-            if (Math.sqrt((xc-centerX)*(xc-centerX) + (yc-centerY)*(yc-centerY)) > radius - 32)
+            var xc = buttons[i].left + 32;
+            var yc = buttons[i].top + 32;
+            var dist = Math.sqrt((xc-centerX)*(xc-centerX) + (yc-centerY)*(yc-centerY));
+            if (dist > radius - 32 || isNaN(dist))
                 allInside = false;
         }
         if (allInside) {
