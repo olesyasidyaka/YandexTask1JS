@@ -148,6 +148,9 @@ function Door2(number, onUnlock) {
         this.popup.querySelector('.myButton_1'),
         this.popup.querySelector('.myButton_2')
     ];
+    var centerX = 160;
+    var centerY = 280;
+    var radius = 110;
 
     buttons.forEach(function(b) {
         b.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
@@ -157,8 +160,6 @@ function Door2(number, onUnlock) {
         b.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
         b.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
     }.bind(this));
-
-    var timer = window.setInterval(moveBack, 10);
 
     function _onButtonPointerDown(e) {
         e.target.classList.add('door-riddle__button_pressed');
@@ -208,10 +209,16 @@ function Door2(number, onUnlock) {
      * Проверяем, можно ли теперь открыть дверь
      */
     function checkCondition() {
-        // if (alpha > 3*Math.PI) {
-        //     window.clearTimeout(timer);
-        //     this.unlock();
-        // }
+        var allInside = true;
+        for (var i = 0; i < 3; i++) {
+            var xc = buttons[i].left - 32;
+            var yc = buttons[i].top - 32;
+            if (Math.sqrt((xc-centerX)*(xc-centerX) + (yc-centerY)*(yc-centerY)) > radius - 32)
+                allInside = false;
+        }
+        if (allInside) {
+            this.unlock();
+        }
     }
     // ==== END Напишите свой код для открытия третей двери здесь ====
 }
