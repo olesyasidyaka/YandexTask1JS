@@ -253,11 +253,14 @@ function Box(number, onUnlock) {
     var startYZoom = [];
     var endXZoom = [];
     var endYZoom = [];
+    var touchIds = {};
     function _onButtonPointerDown(e) {
         if (!gridOpened)
             start = end = e.clientX;
         else {
             console.log("start", e.pointerId);
+            touchIds[e.pointerId] = true;
+            console.log(touchIds);
             startXZoom[e.pointerId] = endXZoom[e.pointerId] = e.clientX;
             startYZoom[e.pointerId] = endYZoom[e.pointerId] = e.clientY;
         }
@@ -271,6 +274,9 @@ function Box(number, onUnlock) {
         }
         else {
             console.log("end", e.pointerId);
+            delete touchIds[e.pointerId];
+            console.log(touchIds);
+
             endXZoom[e.pointerId] = e.clientX;
             endYZoom[e.pointerId] = e.clientY;
             updateZoom();
@@ -285,6 +291,7 @@ function Box(number, onUnlock) {
         }
         else {
             console.log("move", e.pointerId);
+            console.log(touchIds);
             endXZoom[e.pointerId] = e.clientX;
             endYZoom[e.pointerId] = e.clientY;
             updateZoom();
