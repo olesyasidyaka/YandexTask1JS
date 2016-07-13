@@ -330,7 +330,7 @@ function Box(number, onUnlock) {
     }
 
     function setZoom(z) {
-        console.log("set " z);
+        console.log("set ", z);
         $(box).css('background-size', z + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
