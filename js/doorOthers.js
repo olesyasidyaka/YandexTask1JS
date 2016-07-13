@@ -67,11 +67,11 @@ function Door1(number, onUnlock) {
     var alpha = -Math.PI/2;
     var radius = 110;
     var buttonRadius = 32;
-    var doorPosition = $(this.popup.querySelector('.door_1')).position();
+    var doorPosition = $(this.popup.querySelector('.door-riddle__door')).position();
     var xc = radius + doorPosition.left;//160;
     var yc = radius + doorPosition.top;//280;
 
-    var button = this.popup.querySelector('.myButton');
+    var button = this.popup.querySelector('.door-riddle-level-1__button');
     var pressed = false;
 
     button.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
@@ -145,11 +145,11 @@ function Door2(number, onUnlock) {
 
     // ==== Напишите свой код для открытия третей двери здесь ====
     var buttons = [
-        this.popup.querySelector('.myButton_0'),
-        this.popup.querySelector('.myButton_1'),
-        this.popup.querySelector('.myButton_2')
+        this.popup.querySelector('.door-riddle-level-2__button_0'),
+        this.popup.querySelector('.door-riddle-level-2__button_1'),
+        this.popup.querySelector('.door-riddle-level-2__button_2')
     ];
-    var doorPosition = $(this.popup.querySelector('.door_1')).position();
+    var doorPosition = $(this.popup.querySelector('.door-riddle__door')).position();
     var radius = 110;
     var centerX = radius + doorPosition.left;
     var centerY = radius + doorPosition.top;

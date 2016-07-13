@@ -184,20 +184,23 @@ body {
     height: 100%;
 }
 
-.door_1 {
+.door-riddle__door {
     width: 220px;
     height: 220px;
     border-radius: 116px;
     border: 3px solid rgb(163, 255, 115);
     background-color: transparent;
     position: absolute;
-    top: 200px;
+    top: 150px;
     left: calc(50% - 113px);
 
     box-shadow: 0px 0px 10px 6px rgba(163, 255, 115, 0.39);
 }
 
-.myButton, .myButton_0, .myButton_1, .myButton_2 {
+.door-riddle-level-1__button,
+.door-riddle-level-2__button_0,
+.door-riddle-level-2__button_1,
+.door-riddle-level-2__button_2 {
     width: 64px;
     height: 64px;
     border-radius: 64px;
@@ -211,20 +214,20 @@ body {
     /*left: calc(50% - 32px);*/
     /*top: calc(50% - 113px - 32px);*/
     left: cacl(50% - 32px);
-    top: 168px;
+    top: 118px;
 }
 
-.myButton_0 {
+.door-riddle-level-2__button_0 {
     left: calc(50% - 32px);
     top: 80%;
 }
 
-.myButton_1 {
+.door-riddle-level-2__button_1 {
     left: calc(20% - 32px);
     top: 10%;
 }
 
-.myButton_2 {
+.door-riddle-level-2__button_2 {
     left: calc(80% - 32px);
     top: 10%;
 }
