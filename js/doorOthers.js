@@ -296,7 +296,6 @@ function Box(number, onUnlock) {
         window.requestAnimationFrame(setPosition);
     }
 
-    var zoom = 1;
     function updateZoom() {
         if (Object.keys(startXZoom).length == 2) {
             var id1 = Object.keys(touchIds)[0];
@@ -305,9 +304,23 @@ function Box(number, onUnlock) {
                 startYZoom[id2]) + (startYZoom[id1] - startYZoom[id2])*(startYZoom[id1] - startYZoom[id2]));
             var l2 = Math.sqrt((endXZoom[id1] - endXZoom[id2])*(endXZoom[id1] -
                 endYZoom[id2]) + (endYZoom[id1] - endYZoom[id2])*(endYZoom[id1] - endYZoom[id2]));
+
+            var zoom = l2/l1;
+
+            var oldZoom = parseInt($(box).css('background-size'));
+            if (zoom > 1)
+                zoom = 1 + (zoom - 1)/10;
+            else
+                zoom = 1 - (1 - zoom)/10;
+
             console.log("L ", l1, l2, l2/l1);
-            zoom = l2/l1;
-            window.requestAnimationFrame(setZoom);
+            console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
+
+            zoom *= oldZoom;
+            //zoom = Math.max(zoom, 10);
+            //zoom = Math.min(zoom, 100);
+
+            window.requestAnimationFrame(setZoom.bind(this, zoom));
         }
     }
 
@@ -316,20 +329,9 @@ function Box(number, onUnlock) {
         gridOpened = true;
     }
 
-    function setZoom() {
-        //console.log($(box).css('background-size'));
-        var oldZoom = parseInt($(box).css('background-size'));
-        if (zoom > 1)
-            zoom = 1 + (zoom - 1)/10;
-        else
-            zoom = 1 - (1 - zoom)/10;
-
-        console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
-
-        zoom *= oldZoom;
-        //zoom = Math.max(zoom, 10);
-        //zoom = Math.min(zoom, 100);
-        $(box).css('background-size', parseInt(zoom) + '%');
+    function setZoom(z) {
+        console.log("set " z);
+        $(box).css('background-size', z + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
