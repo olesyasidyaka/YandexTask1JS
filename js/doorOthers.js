@@ -300,8 +300,8 @@ function Box(number, onUnlock) {
 
     var zoom = 1;
     function updateZoom() {
-        console.log(startXZoom);
-        if (startXZoom.length == 2) {
+        console.log("zoom begin ", startXZoom);
+        if (Object.keys(startXZoom).length == 2) {
             var l1 = Math.sqrt((startXZoom[0] - startXZoom[1])*(startXZoom[0] -
                 startYZoom[1]) + (startYZoom[0] - startYZoom[1])*(startYZoom[0] - startYZoom[1]));
             var l2 = Math.sqrt((endXZoom[0] - endXZoom[1])*(endXZoom[0] -
