@@ -76,6 +76,7 @@ function Door1(number, onUnlock) {
     button.addEventListener('pointerup', _onButtonPointerUp.bind(this));
     button.addEventListener('pointermove', _onButtonPointerMove.bind(this));
     button.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    button.addEventListener('pointerout', _onButtonPointerUp.bind(this));
     button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
     button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
@@ -228,10 +229,89 @@ function Box(number, onUnlock) {
     DoorBase.apply(this, arguments);
 
     // ==== Напишите свой код для открытия сундука здесь ====
-    // Для примера сундук откроется просто по клику на него
-    this.popup.addEventListener('click', function() {
-        this.unlock();
-    }.bind(this));
+    var grid = this.popup.querySelector('.door-riddle__grid');
+    var box = this.popup.querySelector('.door-riddle__box');
+    var gridOpened = false;
+
+    grid.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+    grid.addEventListener('pointerup', _onButtonPointerUp.bind(this));
+    grid.addEventListener('pointermove', _onButtonPointerMove.bind(this));
+    grid.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    grid.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+    grid.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
+
+    box.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
+    box.addEventListener('pointerup', _onButtonPointerUp.bind(this));
+    box.addEventListener('pointermove', _onButtonPointerMove.bind(this));
+    box.addEventListener('pointercancel', _onButtonPointerUp.bind(this));
+    box.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
+    box.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
+
+    var start = 0;
+    var end = 0;
+    var startXZoom = [];
+    var startYZoom = [];
+    var endXZoom = [];
+    var endYZoom = [];
+    function _onButtonPointerDown(e) {
+        if (!gridOpened)
+            start = end = e.clientX;
+        else {
+            startXZoom[e.pointerId] = endXZoom[e.pointerId] = e.clientX;
+            startYZoom[e.pointerId] = endYZoom[e.pointerId] = e.clientY;
+        }
+    }
+
+    function _onButtonPointerUp(e) {
+        if (!gridOpened) {
+            end = e.clientX;
+            if (end - start > 50)
+                updateGrid();
+        }
+        else {
+            endXZoom[e.pointerId] = e.clientX;
+            endYZoom[e.pointerId] = e.clientY;
+            updateZoom();
+        }
+    }
+
+    function _onButtonPointerMove(e) {
+        if (!gridOpened) {
+            end = e.clientX;
+            if (end - start > 50)
+                updateGrid();
+        }
+        else {
+            endXZoom[e.pointerId] = e.clientX;
+            endYZoom[e.pointerId] = e.clientY;
+            updateZoom();
+        }
+    }
+
+    function updateGrid() {
+        window.requestAnimationFrame(setPosition);
+    }
+
+    var zoom = 1;
+    function updateZoom() {
+        if (startXZoom.length == 2) {
+            var l1 = Math.sqrt((startXZoom[0] - startXZoom[1])*(startXZoom[0] -
+                startYZoom[1]) + (startYZoom[0] - startYZoom[1])*(startYZoom[0] - startYZoom[1]));
+            var l2 = Math.sqrt((endXZoom[0] - endXZoom[1])*(endXZoom[0] -
+                endYZoom[1]) + (endYZoom[0] - endYZoom[1])*(endYZoom[0] - endYZoom[1]));
+            zoom = l2/l1;
+            window.requestAnimationFrame(setZoom);
+        }
+    }
+
+    function setPosition() {
+        $(grid).css('left', '100%');
+        gridOpened = true;
+    }
+
+    function setZoom() {
+        $(box).css('background-size', zoom * 100 + '%');
+    }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
     this.showCongratulations = function() {
