@@ -191,7 +191,7 @@ body {
     border: 3px solid rgb(163, 255, 115);
     background-color: transparent;
     position: absolute;
-    top: calc(50% - 113px);
+    top: 200px;
     left: calc(50% - 113px);
 
     box-shadow: 0px 0px 10px 6px rgba(163, 255, 115, 0.39);
@@ -210,8 +210,8 @@ body {
     position: absolute;
     /*left: calc(50% - 32px);*/
     /*top: calc(50% - 113px - 32px);*/
-    left: 18px;
-    top: 248px;
+    left: cacl(50% - 32px);
+    top: 168px;
 }
 
 .myButton_0 {

@@ -115,7 +115,7 @@ function Door1(number, onUnlock) {
 
     function setPosition() {
         left = xc + radius * Math.cos(alpha) - buttonRadius;
-        top = yc + radius * Math.sin(alpha);
+        top = yc + radius * Math.sin(alpha) - buttonRadius;
         $(button).css('left', left + 'px');
         $(button).css('top', top + 'px');
     }
