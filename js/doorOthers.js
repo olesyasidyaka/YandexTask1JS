@@ -261,7 +261,6 @@ function Box(number, onUnlock) {
             touchIds[e.pointerId] = true;
             startXZoom[e.pointerId] = endXZoom[e.pointerId] = e.clientX;
             startYZoom[e.pointerId] = endYZoom[e.pointerId] = e.clientY;
-            console.log(startXZoom, startYZoom);
         }
     }
 
@@ -272,7 +271,6 @@ function Box(number, onUnlock) {
                 updateGrid();
         }
         else {
-            console.log("end", e.pointerId);
             delete touchIds[e.pointerId];
             delete startXZoom[e.pointerId];
             delete endXZoom[e.pointerId];
@@ -300,7 +298,6 @@ function Box(number, onUnlock) {
 
     var zoom = 1;
     function updateZoom() {
-        console.log(startXZoom, startYZoom, endXZoom, endYZoom);
         if (Object.keys(startXZoom).length == 2) {
             var id1 = Object.keys(touchIds)[0];
             var id2 = Object.keys(touchIds)[1];
@@ -309,7 +306,6 @@ function Box(number, onUnlock) {
             var l2 = Math.sqrt((endXZoom[id1] - endXZoom[id2])*(endXZoom[id1] -
                 endYZoom[id2]) + (endYZoom[id1] - endYZoom[id2])*(endYZoom[id1] - endYZoom[id2]));
             zoom = l2/l1;
-            console.log("zoom ", zoom);
             window.requestAnimationFrame(setZoom);
         }
     }
@@ -321,6 +317,7 @@ function Box(number, onUnlock) {
 
     function setZoom() {
         var oldZoom = parseInt($(box).css('background-size'));
+        console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom*zoom + '%');
         $(box).css('background-size', oldZoom * zoom + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
