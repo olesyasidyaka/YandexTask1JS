@@ -149,9 +149,11 @@ function Door2(number, onUnlock) {
         this.popup.querySelector('.myButton_1'),
         this.popup.querySelector('.myButton_2')
     ];
-    var centerX = 163;
-    var centerY = 283;
+    var doorPosition = $(this.popup.querySelector('.door_1')).position();
     var radius = 110;
+    var centerX = radius + doorPosition.left;
+    var centerY = radius + doorPosition.top;
+    var buttonRadius = 32;
 
     buttons.forEach(function(b) {
         b.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
@@ -174,8 +176,8 @@ function Door2(number, onUnlock) {
 
     function _onButtonPointerMove(e) {
         e.target.pressed = true;
-        e.target.left = e.clientX - 32;
-        e.target.top = e.clientY - 32;
+        e.target.left = e.clientX - buttonRadius;
+        e.target.top = e.clientY - buttonRadius;
         checkCondition.apply(this);
         update();
     }
@@ -203,10 +205,10 @@ function Door2(number, onUnlock) {
     function checkCondition() {
         var allInside = true;
         for (var i = 0; i < 3; i++) {
-            var xc = buttons[i].left + 32;
-            var yc = buttons[i].top + 32;
+            var xc = buttons[i].left + buttonRadius;
+            var yc = buttons[i].top + buttonRadius;
             var dist = Math.sqrt((xc-centerX)*(xc-centerX) + (yc-centerY)*(yc-centerY));
-            if (dist > radius - 32 || isNaN(dist))
+            if (dist > radius - buttonRadius || isNaN(dist))
                 allInside = false;
         }
         if (allInside) {
