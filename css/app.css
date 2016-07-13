@@ -215,18 +215,18 @@ body {
 }
 
 .myButton_0 {
-    left: calc(50% - 32px);
-    top: 90%;
+    left: calc(0% - 32px);
+    top: 80%;
 }
 
 .myButton_1 {
     left: calc(20% - 32px);
-    top: 20%;
+    top: 10%;
 }
 
 .myButton_2 {
     left: calc(80% - 32px);
-    top: 20%;
+    top: 10%;
 }
 
 .door-riddle__button_pressed {

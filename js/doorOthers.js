@@ -69,7 +69,7 @@ function Door1(number, onUnlock) {
     var buttonRadius = 32;
     var doorPosition = $(this.popup.querySelector('.door_1')).position();
     var xc = radius + doorPosition.left;//160;
-    var yc = radius + doorPosition.top - buttonRadius;//280;
+    var yc = radius + doorPosition.top;//280;
 
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
