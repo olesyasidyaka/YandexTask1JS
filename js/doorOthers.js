@@ -231,7 +231,6 @@ function Box(number, onUnlock) {
     // ==== Напишите свой код для открытия сундука здесь ====
     var grid = this.popup.querySelector('.door-riddle__grid');
     var box = this.popup.querySelector('.door-riddle__box');
-    var gridOpened = false;
 
     grid.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
     grid.addEventListener('pointerup', _onButtonPointerUp.bind(this));
@@ -247,20 +246,39 @@ function Box(number, onUnlock) {
     box.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
     box.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
+    var gridOpened = false;
+    var zoomed = true;
+
+    // grid drag coordinates
     var start = 0;
     var end = 0;
+
+    // multitouch for zoom
     var startXZoom = {};
     var startYZoom = {};
     var endXZoom = {};
     var endYZoom = {};
     var touchIds = {};
+
+    // delay for dpubletap
+    var lastTouch = 0;
+    var prevTouch = 0;
+
     function _onButtonPointerDown(e) {
         if (!gridOpened)
             start = end = e.clientX;
-        else {
+        else if (!zoomed) {
             touchIds[e.pointerId] = true;
             startXZoom[e.pointerId] = endXZoom[e.pointerId] = e.clientX;
             startYZoom[e.pointerId] = endYZoom[e.pointerId] = e.clientY;
+        }
+        else {
+            prevTouch = lastTouch;
+            lastTouch = (new Date).getTime();
+
+            console.log(prevTouch, lastTouch);
+            if (lastTouch - prevTouch < 300)
+                tapped.apply(this);
         }
     }
 
@@ -270,7 +288,7 @@ function Box(number, onUnlock) {
             if (end - start > 50)
                 updateGrid();
         }
-        else {
+        else if (!zoomed) {
             delete touchIds[e.pointerId];
             delete startXZoom[e.pointerId];
             delete endXZoom[e.pointerId];
@@ -285,7 +303,7 @@ function Box(number, onUnlock) {
             if (end - start > 50)
                 updateGrid();
         }
-        else {
+        else if (!zoomed) {
             endXZoom[e.pointerId] = e.clientX;
             endYZoom[e.pointerId] = e.clientY;
             updateZoom();
@@ -321,7 +339,15 @@ function Box(number, onUnlock) {
             zoom = Math.min(zoom, 100); // not too big
 
             window.requestAnimationFrame(setZoom.bind(this, zoom));
+
+            if (zoom == 1)
+                zoomed = true;
         }
+    }
+
+    function tapped() {
+        console.log("tapped");
+        this.unlock();
     }
 
     function setPosition() {
