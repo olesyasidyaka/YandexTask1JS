@@ -339,7 +339,7 @@ function Box(number, onUnlock) {
 
             window.requestAnimationFrame(setZoom.bind(this, zoom));
 
-            if (zoom == 1)
+            if (zoom == 100)
                 zoomed = true;
         }
     }
