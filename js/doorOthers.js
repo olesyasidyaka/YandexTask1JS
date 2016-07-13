@@ -316,9 +316,13 @@ function Box(number, onUnlock) {
     }
 
     function setZoom() {
+        console.log($(box).css('background-size'));
         var oldZoom = parseInt($(box).css('background-size'));
         console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom*zoom + '%');
-        $(box).css('background-size', oldZoom * zoom + '%');
+        zoom = oldZoom * zoom;
+        zoom = Math.max(zoom, 0.1);
+        zoom = Math.min(zoom, 1);
+        $(box).css('background-size', zoom + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
