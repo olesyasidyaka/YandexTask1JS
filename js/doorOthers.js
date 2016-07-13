@@ -247,7 +247,7 @@ function Box(number, onUnlock) {
     box.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
     var gridOpened = false;
-    var zoomed = true;
+    var zoomed = false;
 
     // grid drag coordinates
     var start = 0;
@@ -260,7 +260,7 @@ function Box(number, onUnlock) {
     var endYZoom = {};
     var touchIds = {};
 
-    // delay for dpubletap
+    // delay for doubletap
     var lastTouch = 0;
     var prevTouch = 0;
 
@@ -331,8 +331,7 @@ function Box(number, onUnlock) {
             else
                 zoom = 1 - (1 - zoom)/5;
 
-            console.log("L ", l1, l2, l2/l1);
-            console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
+            //console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
 
             zoom *= oldZoom;
             zoom = Math.max(zoom, 10);  // not too small
@@ -346,7 +345,6 @@ function Box(number, onUnlock) {
     }
 
     function tapped() {
-        console.log("tapped");
         this.unlock();
     }
 
@@ -356,7 +354,6 @@ function Box(number, onUnlock) {
     }
 
     function setZoom(z) {
-        console.log("set ", z);
         $(box).css('background-size', z + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
