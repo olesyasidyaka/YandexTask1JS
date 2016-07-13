@@ -318,14 +318,16 @@ function Box(number, onUnlock) {
     function setZoom() {
         console.log($(box).css('background-size'));
         var oldZoom = parseInt($(box).css('background-size'));
-        console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
         if (zoom > 1)
-            zoom = 1 + (zoom - 1)/5;
+            zoom = 1 + (zoom - 1)/10;
         else
-            zoom = 1;
+            zoom = 1 - (1 - zoom)/10;
+
+        console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
+
         zoom *= oldZoom;
-        zoom = Math.max(zoom, 10);
-        zoom = Math.min(zoom, 100);
+        //zoom = Math.max(zoom, 10);
+        //zoom = Math.min(zoom, 100);
         console.log(parseInt(zoom));
         $(box).css('background-size', parseInt(zoom) + '%');
     }
