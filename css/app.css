@@ -257,6 +257,9 @@ body {
 .door-riddle__box-up {
     background-image: url(../img/door__box_up.png);
     position: absolute;
+    top: 0px;
+
+    transition: top 1s;
 }
 
 .door-riddle__box-down {

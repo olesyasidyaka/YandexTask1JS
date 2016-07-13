@@ -231,6 +231,8 @@ function Box(number, onUnlock) {
     // ==== Напишите свой код для открытия сундука здесь ====
     var grid = this.popup.querySelector('.door-riddle__grid');
     var box = this.popup.querySelector('.door-riddle__box');
+    var boxUp = this.popup.querySelector('.door-riddle__box-up');
+    var boxDown = this.popup.querySelector('.door-riddle__box-down');
 
     grid.addEventListener('pointerdown', _onButtonPointerDown.bind(this));
     grid.addEventListener('pointerup', _onButtonPointerUp.bind(this));
@@ -347,7 +349,7 @@ function Box(number, onUnlock) {
 
     function tapped() {
         showBoxOpen();
-        this.unlock();
+        window.setTimeout(this.unlock.bind(this), 500);
     }
 
     function setPosition() {
@@ -356,12 +358,12 @@ function Box(number, onUnlock) {
     }
 
     function setZoom(z) {
-        $(box).css('background-size', z + '%');
-        $(box).children().css('background-size', z + '%');
+        $(boxUp).css('background-size', z + '%');
+        $(boxDown).css('background-size', z + '%');
     }
     
     function showBoxOpen() {
-        
+        $(boxUp).css('top', '-20px');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
