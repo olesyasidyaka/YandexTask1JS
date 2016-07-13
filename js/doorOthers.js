@@ -257,6 +257,7 @@ function Box(number, onUnlock) {
         if (!gridOpened)
             start = end = e.clientX;
         else {
+            console.log("start", e.pointerId);
             startXZoom[e.pointerId] = endXZoom[e.pointerId] = e.clientX;
             startYZoom[e.pointerId] = endYZoom[e.pointerId] = e.clientY;
         }
@@ -269,6 +270,7 @@ function Box(number, onUnlock) {
                 updateGrid();
         }
         else {
+            console.log("end", e.pointerId);
             endXZoom[e.pointerId] = e.clientX;
             endYZoom[e.pointerId] = e.clientY;
             updateZoom();
@@ -282,6 +284,7 @@ function Box(number, onUnlock) {
                 updateGrid();
         }
         else {
+            console.log("move", e.pointerId);
             endXZoom[e.pointerId] = e.clientX;
             endYZoom[e.pointerId] = e.clientY;
             updateZoom();
