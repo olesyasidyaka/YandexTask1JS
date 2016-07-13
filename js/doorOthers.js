@@ -277,7 +277,7 @@ function Box(number, onUnlock) {
             lastTouch = (new Date).getTime();
 
             console.log(prevTouch, lastTouch);
-            if (lastTouch - prevTouch < 300)
+            if (lastTouch - prevTouch > 100 && lastTouch - prevTouch < 300)
                 tapped.apply(this);
         }
     }
