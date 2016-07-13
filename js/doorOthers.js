@@ -314,6 +314,7 @@ function Box(number, onUnlock) {
         window.requestAnimationFrame(setPosition);
     }
 
+    var oldZoom = 20;
     function updateZoom() {
         if (Object.keys(startXZoom).length == 2) {
             var id1 = Object.keys(touchIds)[0];
@@ -325,11 +326,10 @@ function Box(number, onUnlock) {
 
             var zoom = l2/l1;
 
-            var oldZoom = parseInt($(box).css('background-size'));
             if (zoom > 1)
-                zoom = 1 + (zoom - 1)/5; // not too fast
+                zoom = 1 + (zoom - 1)/10; // not too fast
             else
-                zoom = 1 - (1 - zoom)/5;
+                zoom = 1 - (1 - zoom)/10;
 
             //console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
 
@@ -345,6 +345,7 @@ function Box(number, onUnlock) {
     }
 
     function tapped() {
+        showBoxOpen();
         this.unlock();
     }
 
@@ -355,6 +356,11 @@ function Box(number, onUnlock) {
 
     function setZoom(z) {
         $(box).css('background-size', z + '%');
+        $(box).children().css('background-size', z + '%');
+    }
+    
+    function showBoxOpen() {
+        
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 

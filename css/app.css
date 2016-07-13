@@ -242,11 +242,24 @@ body {
     transition: left 1s;
 }
 
-.door-riddle__box {
-    background-image: url(../img/door__box.png);
+.door-riddle__box,
+.door-riddle__box-up,
+.door-riddle__box-down
+{
+    /*background-image: url(../img/door__box.png);*/
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20%;
+}
+
+.door-riddle__box-up {
+    background-image: url(../img/door__box_up.png);
+    position: absolute;
+}
+
+.door-riddle__box-down {
+    background-image: url(../img/door__box_down.png);
+    position: absolute;
 }
