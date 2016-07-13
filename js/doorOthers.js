@@ -65,9 +65,10 @@ function Door1(number, onUnlock) {
     // ==== Напишите свой код для открытия второй двери здесь ====
     var left, top;
     var alpha = Math.PI;
-    var xc = 160;
-    var yc = 280;
     var radius = 110;
+    var door = this.popup.querySelector('.door_1');
+    var xc = radius + parseInt($(door).css('left'));//160;
+    var yc = radius + parseInt($(door).css('top'));//280;
 
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
@@ -80,7 +81,7 @@ function Door1(number, onUnlock) {
     button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
     button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
-    var timer = window.setInterval(moveBack, 10);
+    var timer = window.setInterval(moveBack.bind(this), 10);
 
     function _onButtonPointerDown(e) {
         e.target.classList.add('door-riddle__button_pressed');
@@ -125,7 +126,7 @@ function Door1(number, onUnlock) {
      */
     function checkCondition() {
         if (alpha > 3*Math.PI) {
-            window.clearTimeout(timer);
+            window.clearInterval(timer);
             this.unlock();
         }
     }
