@@ -66,11 +66,11 @@ function Door1(number, onUnlock) {
     var left, top;
     var alpha = -Math.PI/2;
     var radius = 110;
-    var door = this.popup.querySelector('.door_1');
-    var xc = radius + parseInt($(door).css('left'));//160;
-    //var yc = radius + parseInt($(door).css('top'));//280;
+    var doorPosition = $(this.popup.querySelector('.door_1')).position();
+    var xc = radius + doorPosition.left;//160;
+    var yc = radius + doorPosition.top;//280;
     //var xc = 160;
-    var yc = 280;
+    //var yc = 280;
 
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
