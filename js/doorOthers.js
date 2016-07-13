@@ -348,7 +348,7 @@ function Box(number, onUnlock) {
     }
 
     function tapped() {
-        showBoxOpen();
+        showBoxOpen.apply(this);
         window.setTimeout(this.unlock.bind(this), 500);
     }
 
