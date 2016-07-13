@@ -66,11 +66,10 @@ function Door1(number, onUnlock) {
     var left, top;
     var alpha = -Math.PI/2;
     var radius = 110;
+    var buttonRadius = 32;
     var doorPosition = $(this.popup.querySelector('.door_1')).position();
     var xc = radius + doorPosition.left;//160;
-    var yc = radius + doorPosition.top;//280;
-    //var xc = 160;
-    //var yc = 280;
+    var yc = radius + doorPosition.top - buttonRadius;//280;
 
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
@@ -96,8 +95,8 @@ function Door1(number, onUnlock) {
 
     function _onButtonPointerMove(e) {
         pressed = true;
-        left = e.clientX - 32;
-        top = e.clientY - 32;
+        left = e.clientX - buttonRadius;
+        top = e.clientY - buttonRadius;
         checkCondition.apply(this);
         update();
     }
@@ -117,8 +116,8 @@ function Door1(number, onUnlock) {
     }
 
     function setPosition() {
-        left = xc + radius * Math.cos(alpha) - 32;
-        top = yc + radius * Math.sin(alpha) - 32;
+        left = xc + radius * Math.cos(alpha) - buttonRadius;
+        top = yc + radius * Math.sin(alpha) - buttonRadius;
         $(button).css('left', left + 'px');
         $(button).css('top', top + 'px');
     }
