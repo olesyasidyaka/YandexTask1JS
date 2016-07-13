@@ -64,13 +64,13 @@ function Door1(number, onUnlock) {
 
     // ==== Напишите свой код для открытия второй двери здесь ====
     var left, top;
-    var alpha = Math.PI;
+    var alpha = -Math.PI/2;
     var radius = 110;
-    //var door = this.popup.querySelector('.door_1');
-    //var xc = radius + parseInt($(door).css('left'));//160;
-    //var yc = radius + parseInt($(door).css('top'));//280;
-    var xc = 160;
-    var yc = 280;
+    var door = this.popup.querySelector('.door_1');
+    var xc = radius + parseInt($(door).css('left'));//160;
+    var yc = radius + parseInt($(door).css('top'));//280;
+    //var xc = 160;
+    //var yc = 280;
 
     var button = this.popup.querySelector('.myButton');
     var pressed = false;
@@ -110,8 +110,8 @@ function Door1(number, onUnlock) {
     function moveBack() {
         if (!pressed && alpha != Math.PI) {
             alpha -= 1 * Math.PI / 180;
-            if (alpha < Math.PI)
-                alpha = Math.PI;
+            if (alpha < -Math.PI/2)
+                alpha = -Math.PI/2;
             window.requestAnimationFrame(setPosition);
         }
     }
@@ -127,7 +127,7 @@ function Door1(number, onUnlock) {
      * Проверяем, можно ли теперь открыть дверь
      */
     function checkCondition() {
-        if (alpha > 3*Math.PI) {
+        if (alpha > 3*Math.PI/2) {
             window.clearInterval(timer);
             this.unlock();
         }

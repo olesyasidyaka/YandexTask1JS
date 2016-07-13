@@ -208,8 +208,10 @@ body {
     transition: background-color .3s;
 
     position: absolute;
-    left: calc(50% - 113px - 32px);
-    top: calc(50% + 3px - 32px);
+    left: calc(50% - 32px);
+    top: calc(50% - 113px - 32px);
+    /*left: 18px;*/
+    /*top: 248px;*/
 }
 
 .myButton_0 {
