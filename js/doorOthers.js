@@ -309,16 +309,16 @@ function Box(number, onUnlock) {
 
             var oldZoom = parseInt($(box).css('background-size'));
             if (zoom > 1)
-                zoom = 1 + (zoom - 1)/10;
+                zoom = 1 + (zoom - 1)/5; // not too fast
             else
-                zoom = 1 - (1 - zoom)/10;
+                zoom = 1 - (1 - zoom)/5;
 
             console.log("L ", l1, l2, l2/l1);
             console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
 
             zoom *= oldZoom;
-            //zoom = Math.max(zoom, 10);
-            //zoom = Math.min(zoom, 100);
+            zoom = Math.max(zoom, 10);  // not too small
+            zoom = Math.min(zoom, 100); // not too big
 
             window.requestAnimationFrame(setZoom.bind(this, zoom));
         }
