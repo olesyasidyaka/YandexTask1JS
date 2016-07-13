@@ -327,9 +327,9 @@ function Box(number, onUnlock) {
             var zoom = l2/l1;
 
             if (zoom > 1)
-                zoom = 1 + (zoom - 1)/10; // not too fast
+                zoom = 1 + (zoom - 1)/5; // not too fast
             else
-                zoom = 1 - (1 - zoom)/10;
+                zoom = 1 - (1 - zoom)/5;
 
             //console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
 
