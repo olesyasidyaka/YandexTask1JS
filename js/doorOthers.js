@@ -95,8 +95,6 @@ function Door1(number, onUnlock) {
 
     function _onButtonPointerMove(e) {
         pressed = true;
-        left = e.clientX - buttonRadius;
-        top = e.clientY - buttonRadius;
         checkCondition.apply(this);
         update();
     }
@@ -117,7 +115,7 @@ function Door1(number, onUnlock) {
 
     function setPosition() {
         left = xc + radius * Math.cos(alpha) - buttonRadius;
-        top = yc + radius * Math.sin(alpha) - buttonRadius;
+        top = yc + radius * Math.sin(alpha);
         $(button).css('left', left + 'px');
         $(button).css('top', top + 'px');
     }
