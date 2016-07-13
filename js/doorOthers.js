@@ -301,8 +301,6 @@ function Box(number, onUnlock) {
     var zoom = 1;
     function updateZoom() {
         console.log(startXZoom, startYZoom, endXZoom, endYZoom);
-        var id1 = Object.keys(touchIds)[0];
-        console.log(Object.keys(startXZoom).length);
         if (Object.keys(startXZoom).length == 2) {
             var id1 = Object.keys(touchIds)[0];
             var id2 = Object.keys(touchIds)[1];
@@ -322,7 +320,8 @@ function Box(number, onUnlock) {
     }
 
     function setZoom() {
-        $(box).css('background-size', zoom * 100 + '%');
+        var oldZoom = parseInt($(box).css('background-size'));
+        $(box).css('background-size', oldZoom * zoom + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
