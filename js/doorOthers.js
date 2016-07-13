@@ -320,10 +320,10 @@ function Box(number, onUnlock) {
         var oldZoom = parseInt($(box).css('background-size'));
         console.log("old ", oldZoom, " new ", zoom, " result ", oldZoom * zoom + '%');
         zoom *= oldZoom;
-        zoom = Math.max(zoom, 0.1);
-        zoom = Math.min(zoom, 1);
+        zoom = Math.max(zoom, 10);
+        zoom = Math.min(zoom, 100);
         console.log(parseInt(zoom));
-        $(box).css('background-size', parseInt(zoom) + '%');
+        $(box).css('background-size', zoom + '%');
     }
     // ==== END Напишите свой код для открытия сундука здесь ====
 
