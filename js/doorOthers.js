@@ -66,7 +66,7 @@ function Door1(number, onUnlock) {
     var left, top;
     var alpha = Math.PI;
     var radius = 110;
-    var door = this.popup.querySelector('.door_1');
+    //var door = this.popup.querySelector('.door_1');
     //var xc = radius + parseInt($(door).css('left'));//160;
     //var yc = radius + parseInt($(door).css('top'));//280;
     var xc = 160;
@@ -83,7 +83,7 @@ function Door1(number, onUnlock) {
     button.addEventListener('pointerleave', _onButtonPointerUp.bind(this));
     button.addEventListener('pointerenter', _onButtonPointerDown.bind(this));
 
-    var timer = window.setInterval(moveBack.bind(this), 10);
+    var timer = window.setInterval(moveBack, 10);
 
     function _onButtonPointerDown(e) {
         e.target.classList.add('door-riddle__button_pressed');
